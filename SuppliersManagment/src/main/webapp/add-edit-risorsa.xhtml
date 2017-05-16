@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head></h:head>
+	<h:body>
+		<c:if test="#{risorsa.messageError != null}">
+			#{risorsa.messageError}
+		</c:if>
+		<c:otherwise>
+			<c:if test="#{risorsa.id != 0}">
+					<c:set var="actionFrom" scope="request" value="modifica"/>
+			</c:if>
+			<c:if test="#{risorsa.id eq 0}">
+				<c:set var="actionFrom" scope="request" value="aggiungi"/>
+			</c:if>
+			<br/>
+			<h:form>
+				<br/>
+					Nome <p:inputText name="nome" value="#{risorsa.nome}" id="id"/> 
+					Cognome: <p:inputText name="descrizione" value="#{risorsa.cognome}" id="cognome"/>
+					Info: <p:inputText name="info" value="#{risorsa.info}" id="info"/>
+					Val Skill Sync: <p:inputText name="valSkillSync" value="#{risorsa.valSkillSync}" id="valSkillSync"/>
+					Fornitore della risorsa:
+					<p:autoComplete value="#{risorsa.nomeFornitore}"
+						completeMethod="#{risorsa.completaNomeFornitore}" 
+						forceSelection="true" required="true"
+						requiredMessage="Inserire il Fornitore della risorsa"
+						dropdown="true" />
+						
+					<input type="hidden" name="id" value="#{risorsa.id}"/>
+					<input type="hidden" name="actionFrom" value="#{actionFrom}"/>
+						<p:commandButton action="#{risorsa.aggiungiModifica}" value="#{actionFrom}" ajax="false" />
+			</h:form>
+			<br/><br/>
+			<h:form id="aggiungiModificaDett">
+				<br />
+				<input type="hidden" name="actionFrom" value="aggiungi"/>
+				<p:commandButton action="#{risorsa.paginaRisorse}" value="Ritorna alla lista" ajax="false" />
+			</h:form><br/><br/>
+		</c:otherwise>
+	</h:body>
+</html>

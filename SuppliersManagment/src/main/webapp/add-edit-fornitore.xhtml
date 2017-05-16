@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	
+		<script>
+			$(document).ready(function() {
+				
+				$( "fieldset[id$='testDataRiunione']" ).hide()
+				
+				$( "#clickme" ).click(function() {
+					$( "fieldset[id$='testDataRiunione']" ).toggle( "slow", function() {
+					    // Animation complete.
+					  });
+				});
+			});
+		</script>
+	
+	</h:head>
+	<h:body>
+		<c:if test="#{fornitore.messageError != null}">
+			#{fornitore.messageError}
+		</c:if>
+		<c:otherwise>
+			<c:if test="#{fornitore.id != 0}">
+					<c:set var="actionFrom" scope="request" value="modifica"/>
+			</c:if>
+			<c:if test="#{fornitore.id eq 0}">
+				<c:set var="actionFrom" scope="request" value="aggiungi"/>
+			</c:if>
+			<br/>
+			<h:form>
+				<br/>
+					Nome Fornitore mod<p:inputText name="nome" value="#{fornitore.nome}" /> 
+					Descrizione: <p:inputText name="descrizione" value="#{fornitore.descrizione}" />
+					Telefono: <p:inputMask mask="(99) 999-99-99" value="#{fornitore.telefono}" id="telefono"></p:inputMask>
+					Codice Azienda: <p:inputMask mask="aaa-999-a999" value="#{fornitore.codIdentifictivo}" id="codIdentifictivo"></p:inputMask>
+					<input type="hidden" name="id" value="#{fornitore.id}"/>
+					<input type="hidden" name="actionFrom" value="#{actionFrom}"/>
+					<h2>Data Riunione: #{fornitore.dataRiunioneStr}</h2>
+					<div id="clickme">
+					 	Cambia la data per la riunione
+					</div>
+					Data Riunione:	
+					<p:fieldset legend="Date and Time (24-hour format)" id="testDataRiunione">
+						<h:panelGrid columns="2">
+							<p:calendar value="#{fornitore.dataRiunione}"
+								pattern="MM/dd/yyyy HH:mm">
+								<p:ajax event="dateSelect" update="selection" />
+							</p:calendar>
+							<h:outputText value="#{dataRiun}" id="selection" />
+						</h:panelGrid>
+					</p:fieldset>
+					<br/>
+					
+				<p:commandButton action="#{fornitore.aggiungiModifica}" value="#{actionFrom}" ajax="false" /><br/><br/>
+			</h:form>
+			<br/><br/>
+			<h:form id="aggiungiModificaDett">
+				<br />
+				<input type="hidden" name="actionFrom" value="aggiungi"/>
+				<p:commandButton action="#{fornitore.paginaFornitori}" value="Ritorna alla lista" ajax="false" />
+			</h:form><br/><br/>
+		</c:otherwise>
+	</h:body>
+</html>

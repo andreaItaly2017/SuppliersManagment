@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<title>PrimeFaces Menus</title>
+		<script>
+			$(document).ready(function() {
+				$("img[id='logo']").css({
+					"margin-top" : "-70px",
+					"margin-right" : "87px",
+					"float" : "right"
+				});
+			});
+		</script>
+	</h:head>
+	<h:body>
+		<div>
+			<h1 class="ui-widget-header ui-corner-all" style="width: 1100px;">Fornitori-Risorse App</h1>
+			<p:graphicImage url="images/logo.jpg" id="logo" />
+		</div>
+		<h:form>
+			<p:menubar>
+				<p:submenu label="Home">
+					<p:menuitem value="Home" action="#{fornitore.goToHome}"
+						icon="ui-icon-home" />
+				</p:submenu>
+				<p:submenu label="Fornitori">
+					<p:menuitem value="Fornitori Home" action="#{fornitore.paginaFornitori}"
+						process="@form" />
+				</p:submenu>
+				<p:submenu label="Risorse">
+					<p:menuitem value="Risorse Home" action="#{risorsa.paginaRisorse}"
+						process="@form" />
+				</p:submenu>
+				<p:submenu label="Skill">
+					<p:menuitem value="Skill Home" action="#{skill.paginaSkill}"
+						process="@form" />
+				</p:submenu>
+			</p:menubar>
+			<br />
+			<p:messages autoUpdate="true" />
+		</h:form>
+		
+		<h2 class="ui-widget-header ui-corner-all">Gestione Feedback</h2>
+		
+		<br />
+	</h:body>
+</html>

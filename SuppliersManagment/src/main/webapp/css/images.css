@@ -1,0 +1,29 @@
+@CHARSET "ISO-8859-1";
+.edit {
+	background-image: url('../images/edit.png') !important;
+	background-size:  15px;
+	margin: auto;
+	display: block;
+}
+.delete {
+	background-image: url('../images/delete.jpg') !important;
+	background-size:  20px;
+}
+.ButtonClass{
+	margin: auto;
+	display: block;
+}
+.logoSynclab {
+	background-image: url('../images/logo.jpg') !important;
+	background-size:  15px;
+}
+
+#logo{
+	float: right;
+	margin-top: -70px;
+    margin-right: 60px;
+}
+
+.TestoTitoloPagina{
+	text-align: center;
+}

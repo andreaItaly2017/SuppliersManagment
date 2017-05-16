@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<link rel="stylesheet" type="text/css" href="css/images.css" />
+	</h:head>
+	<h:body>
+		<div>
+			<h1 class="ui-widget-header ui-corner-all" style="width: 1100px;">Fornitori-Risorse App</h1>
+			<p:graphicImage url="images/logo.jpg" id="logo" />
+		</div>
+		<h:form>
+			<p:menubar>
+				<p:submenu label="Home">
+					<p:menuitem value="Home" action="#{fornitore.goToHome}" icon="ui-icon-home"/>
+				</p:submenu>
+				<p:submenu label="Risorse">
+					<p:menuitem value="Risorse Home" action="#{risorsa.paginaRisorse}"
+						process="@form" />
+				</p:submenu>
+				<p:submenu label="Skill">
+					<p:menuitem value="Skill Home" action="#{skill.paginaSkill}"
+						process="@form" />
+				</p:submenu>
+				<p:submenu label="Feedback">
+					<p:menuitem value="Feedback Home" action="#{feedback.paginaFeedback}"
+						process="@form" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+		
+		<h2 class="ui-widget-header ui-corner-all">Gestione Fornitore</h2>
+		
+		<p:panel id="fornitoriPanel">
+			<p:fieldset legend="Ricerca Fornitore per nome">
+				<h:form>
+					<h2>Scegli il nome di un fornitore</h2>
+					   		Sono ammessi nomi di fornitori solo dai suggerimenti 
+					  	 	<p:messages />
+					<p:autoComplete value="#{fornitore.nome}"
+						completeMethod="#{fornitore.completaNomeFornitore}"
+						forceSelection="true" required="true"
+						requiredMessage="Devi scegliere un nome di fornitore presente nell elenco" />
+					<p:commandButton action="#{fornitore.paginaFornitori}"
+						value="Cerca Fornitore" ajax="false" />
+				</h:form>
+			</p:fieldset>
+			<br />
+			<h:form id="aggiungiModifica">
+				<br />
+				<input type="hidden" name="actionFrom" value="aggiungi" />
+				<p:commandButton id="aggiungiModificaId"
+					action="#{fornitore.maskAggiungiModifica}"
+					value="Aggiungi Fornitore" ajax="false" />
+			</h:form>
+			<br />
+			<p:dataTable var="forn" value="#{sessionScope.fornitori}" paginator="true" rows="15" >
+				<f:facet name="header">
+					Fornitori
+				</f:facet>
+				
+				<p:column headerText="Nome Fornitore">
+					<h:form id="cercaDettaglioFornitore">
+						<p:commandLink action="#{fornitore.cercaDettaglio}"
+							value="#{forn.nome}">
+							<f:param name="id" value="#{forn.fornitoreId}" />
+							<f:param name="nome" value="#{forn.nome}" />
+							<f:param name="descrizione" value="#{forn.descrizione}" />
+							<f:param name="telefono" value="#{forn.telefono}" />
+							<f:param name="dataRiunioneStr" value="#{forn.sampleDay}" />
+							<f:param name="codIdentifictivo" value="#{forn.codIdentificativo}" />
+						</p:commandLink>
+					</h:form>
+					<f:facet name="footer">
+						Equivale alla ragione sociale
+					</f:facet>
+				</p:column>
+				
+				<p:column headerText="Descrizione Fornitore" width="250">
+					<h:outputText value="#{forn.descrizione}" />
+					<f:facet name="footer">
+								Di che cosa si occupa il fornitore
+							</f:facet>
+				</p:column>
+				
+				<p:column headerText="Telefono">
+					<h:outputText value="#{forn.telefono}" />
+					<f:facet name="footer">
+							(99) 999-99-99
+						</f:facet>
+				</p:column>
+				
+				<p:column headerText="Codice Identificativo Fornitore" width="100">
+					<h:outputText value="#{forn.codIdentificativo}" />
+					<f:facet name="footer">
+							aaa-999-a999
+						</f:facet>
+				</p:column>
+				
+				<p:column headerText="Elimina" width="50">
+					<h:form id="elimina">
+						<h:inputHidden value="#{forn.fornitoreId}" />
+						<input type="hidden" name="id" value="#{forn.fornitoreId}" />
+						<p:commandButton action="#{fornitore.elimina}" icon="delete"
+							styleClass="ButtonClass" ajax="false" />
+					</h:form>
+					<f:facet name="footer">
+						Elimini il fornitore
+					</f:facet>
+				</p:column>
+				
+				<p:column headerText="Modifica" width="50">
+					<h:form id="maskAggiungiModificaForm">
+						<input type="hidden" name="id" value="#{forn.fornitoreId}" />
+						<input type="hidden" name="nome" value="#{forn.nome}" />
+						<input type="hidden" name="descrizione" value="#{forn.descrizione}" />
+						<input type="hidden" name="telefono" value="#{forn.telefono}" />
+						<input type="hidden" name="codIdentificativo"
+							value="#{forn.codIdentificativo}" />
+						<input type="hidden" name="sampleDay" value="#{forn.sampleDay}" />
+						<input type="hidden" name="actionFrom" value="modifica" />
+						<p:commandButton action="#{fornitore.maskAggiungiModifica}"
+							icon="edit" styleClass="ButtonClass" ajax="false" />
+					</h:form>
+					<f:facet name="footer">
+							Modifichi il fornitore
+						</f:facet>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:body>
+</html>
