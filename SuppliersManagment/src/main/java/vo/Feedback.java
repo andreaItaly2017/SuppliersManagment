@@ -12,8 +12,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="FEEDBACK")
-public class Feedback implements Serializable {
-
+public class Feedback implements Serializable { 
+/* test */
 	private static final long serialVersionUID = -1030364326811360241L;
 
 	@Id
