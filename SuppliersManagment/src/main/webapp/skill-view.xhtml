@@ -57,6 +57,28 @@
 			<p:messages autoUpdate="true" />
 		</h:form>
 		<h2 class="ui-widget-header ui-corner-all">Gestione Skill</h2>
+		<p:panel id="risorsePanel">
+			<p:dataTable var="forn_ris_sk" value="#{sessionScope.skillList}" rows="15" paginator="true">
+			
+				<p:column headerText="Id">
+					<h:outputText value="#{forn_ris_sk.skillId}" />
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{forn_ris_sk.nomeSkill}" />
+				</p:column>
+				
+				<p:column headerText="Valutazione">
+					<h:outputText value="#{forn_ris_sk.valutazioneSkill}" />
+				</p:column>
+				
+				<p:column headerText="Id Risorsa">
+					<h:outputText value="#{forn_ris_sk.idRisorsa}" />
+				</p:column>
+				
+				
+			</p:dataTable>
+		</p:panel>
 		
 	</h:body>
 </html>

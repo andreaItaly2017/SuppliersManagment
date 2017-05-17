@@ -102,7 +102,7 @@ public class FornitoriRisorse {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("\n----FORNITORE ----\n");
+		sb.append("\n----FornitoriRisorse ----\n");
 		sb.append("id=" + idForni + "\n");
 		sb.append("nomeForn =" + nomeFornitore + "\n");
 		sb.append("descrizione forn =" + descForn + "\n");
@@ -112,7 +112,7 @@ public class FornitoriRisorse {
 		sb.append("nomeRisorsa=" + nomeRisorsa + "\n");
 		sb.append("valSkillSync" + valSkillSync + "\n");
 		
-		sb.append("----FORNITORE ----\n");
+		sb.append("----FornitoriRisorse ----\n");
 		return sb.toString();
 	}
 

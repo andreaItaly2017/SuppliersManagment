@@ -1,6 +1,9 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -63,6 +66,24 @@ public class SkillDao {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public List<Object[]> readSkillJoinRisorseJoinFornitori(){ 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<Object[]> fornitori = null;
+		try{
+			/*  sk  order by sk.nome  */
+			Query query = session.createQuery("from Fornitore f join f.risorse ris join ris.skills"); 
+			fornitori = (List<Object[]>)query.list();
+		}catch(HibernateException he){
+			session.getTransaction().rollback();
+			throw he;
+		}
+		finally{
+			session.close();
+		}
+		return fornitori;
 	}
 
 	public Skill createRisorsa(int idRisorsa, String nome, int valutazione) {

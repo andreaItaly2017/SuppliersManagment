@@ -1,14 +1,15 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 
+import managedBean.FornitoriRisorseSkill;
 import util.HibernateUtil;
-import vo.Risorsa;
 import vo.Skill;
 
 public class SkillTest {
@@ -48,6 +49,21 @@ public class SkillTest {
 			throw e2;
 		} finally {
 			session.close();
+		}
+	}
+	
+	@Test
+	public void getAllSkillJoinRisorseJoinFornitori() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<FornitoriRisorseSkill> skills = new ArrayList<FornitoriRisorseSkill>();
+		try {
+			SkillService skillService = new SkillService();
+			skills = skillService.readSkillJoinRisorseJoinFornitori();
+			System.out.println(skills);
+		} catch (Exception e2) {
+			session.getTransaction().rollback();
+			throw e2;
 		}
 	}
 	

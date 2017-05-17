@@ -213,8 +213,7 @@ public class FornitoriBean {
 
 	public String cercaDettaglio() {
 		System.out.println(">>>CERCADETTAGLIO<<<");
-		List<Fornitore> fornitori = (List<Fornitore>) FacesContext.getCurrentInstance().getExternalContext()
-				.getSessionMap().get("fornitori");
+		List<Fornitore> fornitori = (List<Fornitore>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("fornitori");
 		for (Fornitore fornitore : fornitori) {
 			if (fornitore.getFornitoreId() == this.id) {
 				this.dataRiunioneStrs = fornitore.getSampleDay();
